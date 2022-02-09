@@ -102,3 +102,5 @@ dist
 
 # TernJS port file
 .tern-port
+/gatling-test-code/build/
+/gatling-test-code/.gradle/

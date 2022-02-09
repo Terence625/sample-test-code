@@ -8,4 +8,4 @@
 ### a text snapshot will be taken for each api response
 ### a test of missing parameters of the request body is applied
 ## performance test (Gatling, Kotlin)
-### demonstrate an example of api performance test scenario of creating a new client in the system. The api authorization is same as the api test
+### demonstrate an example of api performance test scenario of querying client list in the system. The api authorization is same as the api test
