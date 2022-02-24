@@ -7,7 +7,7 @@ import requestClass.RequestAuth
 import urlConfig.UrlHost
 import urlConfig.UrlPath
 
-class QueryClientList : Simulation() {
+class QueryProductDetail : Simulation() {
   //set up the basic http protocol
   private val httpProtocol = http
     .baseUrl(UrlHost.host)
@@ -20,12 +20,12 @@ class QueryClientList : Simulation() {
   //require using gatling feeder to inject different headers to different virtual users
   private val headerFeeder = RequestAuth.requestFeeder(
     "GET",
-    UrlPath.queryClientList
+    UrlPath.queryProductDetail
   )
 
   //This scenario is to conduct load test on one single api
-  private val scn = scenario("query client list").feed(headerFeeder).exec(
-    http("query client list")
+  private val scn = scenario("query product detail").feed(headerFeeder).exec(
+    http("query product detail")
       .get(RequestAuth.url)
       .headers(RequestAuth.sentHeader)
       .check(status().shouldBe(200))
