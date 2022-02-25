@@ -1,5 +1,27 @@
 {
+  "name": "sample-cypress-project",
+  "version": "1.0.0",
+  "description": "sample cypress project for demonstration",
+  "main": "index.js",
+  "scripts": {
+    "cy:open:sit": "cypress open --browser chrome --env configFile=sit,appKey=$APP_KEY,appSecret=$APP_SECRET,auth=$AUTH",
+    "cy:run:sit:e2e:all": "npm run report:cleanup; cypress run --browser chrome --headless --spec 'cypress/integration/api/e2e/**.spec.ts' --env configFile=sit,appKey=$APP_KEY,appSecret=$APP_SECRET,auth=$AUTH; npm run merge:reports; npm run genegrate:report",
+    "cy:run:sit:inte:all": "npm run report:cleanup; cypress run --browser chrome --headless --spec 'cypress/integration/api/integration/**.spec.ts' --env configFile=sit,appKey=$APP_KEY,appSecret=$APP_SECRET,auth=$AUTH; npm run merge:reports; npm run genegrate:report",
+    "cy:run:sit:api:all": "npm run report:cleanup; cypress run --browser chrome --headless --spec 'cypress/integration/api/**.spec.ts' --env configFile=sit,appKey=$APP_KEY,appSecret=$APP_SECRET,auth=$AUTH; npm run merge:reports; npm run genegrate:report",
+    "report:cleanup": "rm -fr mochawesome-report",
+    "merge:reports": "mochawesome-merge --reportDir mochawesome-report > mochawesome-report/output.json",
+    "genegrate:report": "marge mochawesome-report/output.json"
+  },
+  "author": "Terence Tian",
+  "license": "ISC",
   "devDependencies": {
-    "cypress": "^9.4.1"
+    "@types/crypto-js": "^4.0.2",
+    "@types/lodash-es": "^4.17.6",
+    "crypto-js": "^4.1.1",
+    "cypress": "^9.4.1",
+    "cypress-plugin-snapshots": "^1.4.4",
+    "lodash-es": "^4.17.21",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.4"
   }
 }

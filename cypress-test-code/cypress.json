@@ -1,0 +1,21 @@
+{
+  "viewportWidth": 1400,
+  "viewportHeight": 1080,
+  "requestTimeout": 15000,
+  "defaultCommandTimeout": 15000,
+  "video": false,
+  "testFiles": "**/*.spec.{js,ts,jsx,tsx}",
+  "screenshotOnRunFailure": false,
+  "reporter": "mochawesome",
+  "watchForFileChanges": false,
+  "reporterOptions": {
+    "overwrite": false,
+    "html": false,
+    "json": true
+  },
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "cypress-plugin-snapshots": {
+    "serverEnabled": true
+  },
+  "baseUrl": "http://localhost:3000/"
+}
