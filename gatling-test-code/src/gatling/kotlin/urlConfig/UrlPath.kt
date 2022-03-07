@@ -1,8 +1,6 @@
 package urlConfig
 
 //the url path does not exist, just for demonstration
-class UrlPath {
-  companion object {
-    const val queryProductDetail = "/queryProductDetail"
-  }
-}
+
+const val queryProductDetail = "product/queryProductDetail/:id"
+const val createProduct = "product/createProduct"

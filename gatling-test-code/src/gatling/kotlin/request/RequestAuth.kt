@@ -1,4 +1,4 @@
-package requestClass
+package request
 
 import java.security.MessageDigest
 import java.util.*
@@ -16,60 +16,24 @@ class RequestAuth(
   private val date: String = LocalDateTime.now().toString()
   private var md5: String = calcMd5(requestBody)
   private val nonce: String = createUuid()
-  private var url: String = urlToSign(queryParam)
+  var url: String = urlToSign(queryParam)
   private var signature: String = getSign()
 
+  val sessionData: Map<String, String> = mapOf(
+    "url" to url,
+    "Content-MD5" to md5,
+    "X-Ca-Nonce" to nonce,
+    "X-Ca-Signature" to signature,
+  )
+
   companion object {
-    const val url: String = "#{url}"
-
-    //the header required by every api
-    val sentHeader: Map<String, String> = mapOf(
-      "Content-MD5" to "#{md5}",
-      "X-Ca-Nonce" to "#{nonce}",
-      "X-Ca-Signature" to "#{signature}",
+    const val date: String = "today"
+    val commonHeader: Map<String, String> = mapOf(
       "Content-Type" to "application/json",
-      "Date" to "#{Date}",
       "X-Ca-Signature-Headers" to "x-ca-key,x-ca-nonce,x-ca-signaturemethod",
-      "X-Ca-Key" to System.getenv("APP_KEY"),
-      "X-Ca-SignatureMethod" to "HmacSHA256"
-    )
-
-    //
-    fun requestFeeder(method: String, path: String): Iterator<Map<String, String>> {
-      return generateSequence {
-        val requestAuth = RequestAuth(method, path)
-        requestAuth.buildHeaderMap()
-      }.iterator()
-    }
-
-    //request feeder for api with request body
-    fun requestFeeder(
-      method: String, path: String, requestBody: String
-    ): Iterator<Map<String, String>> {
-      return generateSequence {
-        val requestAuth = RequestAuth(method, path, requestBody = requestBody)
-        requestAuth.buildHeaderMap()
-      }.iterator()
-    }
-
-    //request feeder for api with query parameter
-    fun requestFeeder(
-      method: String, path: String, queryParam: Map<String, String>
-    ): Iterator<Map<String, String>> {
-      return generateSequence {
-        val requestAuth = RequestAuth(method, path, queryParam = queryParam)
-        requestAuth.buildHeaderMap()
-      }.iterator()
-    }
-  }
-
-  fun buildHeaderMap(): Map<String, String> {
-    return mapOf(
-      "url" to url,
-      "md5" to md5,
-      "nonce" to nonce,
-      "signature" to signature,
-      "Date" to date,
+      "X-Ca-Key" to "203771586",
+      "X-Ca-SignatureMethod" to "HmacSHA256",
+      "Date" to date
     )
   }
 
